@@ -33,6 +33,7 @@ public class SavingsAccount extends Account {
 		
 
 	/**
+	 * Accessor of MIN_AMOUNT
 	 * @return the minAmount constant as a double
 	 */
 	public static double getMinAmount() {
@@ -40,7 +41,7 @@ public class SavingsAccount extends Account {
 	}
 	
 	/**
-	 * 
+	 * Implement abstract method from abstract class
 	 */
 	public void addTransaction(String transactionInfo) {
 		if(getAccountNumber() != null && !getAccountNumber().trim().isEmpty()) {
