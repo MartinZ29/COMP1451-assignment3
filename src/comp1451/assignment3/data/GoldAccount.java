@@ -1,5 +1,7 @@
 package comp1451.assignment3.data;
 
+import java.util.Date;
+
 /**
  * GoldAccount data class
  * 
@@ -63,25 +65,29 @@ public class GoldAccount extends Account {
 		this.overdraft = overdraft;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see Account#subtractFromBalance(double)
+	/**
+	 * Implement abstract method from abstract class
 	 */
-	@Override
+	public void addTransaction(String transactionInfo) {
+		if(getAccountNumber() != null && !getAccountNumber().trim().isEmpty()) {
+			accountRecords.add(transactionInfo);
+		}
+	}
+	
+	/**
+	 *  Implement abstract method from abstract class
+	 * @param amount
+	 * 			- the amount subtract from the accounts
+	 */
 	public void subtractFromBalance(double amount) {
-
 		if (getBalance() - amount >= GoldAccount.OVERDRAFT_AMT) {
-			
-			super.subtractFromBalance(amount);	
-
+			setBalance(getBalance() - amount);
+			addTransaction(String.format("%s - withdrawal: $%.2f", new Date(), amount));
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
+	/**
+	 * toString method
 	 */
 	@Override
 	public String toString() {
