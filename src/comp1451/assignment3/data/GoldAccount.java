@@ -15,6 +15,7 @@ public class GoldAccount extends Account {
 	public static final double INTEREST_RATE = 0.025;
 	public static final double FEE = 10.0;
 	public static final double OVERDRAFT_AMT = -5000.0;
+	public static final double MIN_AMOUNT = 0.0;
 
 	/**
 	 * Default constructor
@@ -80,9 +81,15 @@ public class GoldAccount extends Account {
 	 * 			- the amount subtract from the accounts
 	 */
 	public void subtractFromBalance(double amount) {
-		if (getBalance() - amount >= GoldAccount.OVERDRAFT_AMT) {
+		if (getBalance() - amount >= GoldAccount.MIN_AMOUNT) {
 			setBalance(getBalance() - amount);
 			addTransaction(String.format("%s - withdrawal: $%.2f", new Date(), amount));
+		}else if(getBalance() - amount <= GoldAccount.MIN_AMOUNT && getBalance() - amount >= GoldAccount.OVERDRAFT_AMT){
+			setBalance(getBalance() - amount);
+			addTransaction(String.format("%s - withdrawal: $%.2f", new Date(), amount));
+			setOverdraft(true);
+		}else {
+			System.out.println("Sorry. Not enough balance.");
 		}
 	}
 
