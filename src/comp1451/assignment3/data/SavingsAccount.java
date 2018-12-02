@@ -1,5 +1,7 @@
 package comp1451.assignment3.data;
 
+import java.util.Date;
+
 /**
  * SavingsAccount data class
  * 
@@ -37,28 +39,34 @@ public class SavingsAccount extends Account {
 		return MIN_AMOUNT;
 	}
 	
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see Account#subtractFromBalance(double)
 	 */
-	@Override
+	public void addTransaction(String transactionInfo) {
+		if(getAccountNumber() != null && !getAccountNumber().trim().isEmpty()) {
+			accountRecords.add(transactionInfo);
+		}
+	}
+		
+	/**
+	 * Implement abstract method from abstract class
+	 * @param amount
+	 * 			- the amount subtract from the account
+	 */
 	public void subtractFromBalance(double amount) {
 
 		if (getBalance() - amount >= MIN_AMOUNT) {
-			
-			super.subtractFromBalance(amount);	
-
+			setBalance(getBalance() - amount);
+			addTransaction(String.format("%s - withdrawal: $%.2f", new Date(), amount));
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * toString method
 	 */
 	@Override
 	public String toString() {
 		return "SavingsAccount [toString()=" + super.toString() + "]";
 	}
 
-	
 }
