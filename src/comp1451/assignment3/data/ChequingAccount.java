@@ -65,7 +65,7 @@ public class ChequingAccount extends Account {
 	}
 	
 	/**
-	 * 
+	 * Implement abstract method from abstract class
 	 */
 	public void addTransaction(String transactionInfo) {
 		if(getAccountNumber() != null && !getAccountNumber().trim().isEmpty()) {
