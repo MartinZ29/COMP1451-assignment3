@@ -1,5 +1,7 @@
 package comp1451.assignment3.data;
 
+import java.util.Date;
+
 /**
  * ChequingAccount data class
  * 
@@ -36,21 +38,19 @@ public class ChequingAccount extends Account {
 	}
 
 	/**
-	 * 
+	 * Accessor of numberOfCheques
 	 * @return the numberOfCheques as int
 	 */
 	public int getNumberOfCheques() {
-
 		return numberOfCheques;
 	}
 
 	/**
-	 * 
+	 * Mutator of numberOfCheques
 	 * @param numberOfCheques
 	 *            the numberOfCheques to set
 	 */
 	public void setNumberOfCheques(int numberOfCheques) {
-
 		if (numberOfCheques > 0) {
 			this.numberOfCheques = numberOfCheques;
 		}
@@ -61,37 +61,41 @@ public class ChequingAccount extends Account {
 	 * from a ChequingAccount
 	 */
 	public void addACheque(){
-		
 		numberOfCheques ++;
 	}
 	
-	
-	/*
-	 * (non-Javadoc)
+	/**
 	 * 
-	 * @see Account#subtractFromBalance(double)
 	 */
-	@Override
+	public void addTransaction(String transactionInfo) {
+		if(getAccountNumber() != null && !getAccountNumber().trim().isEmpty()) {
+			accountRecords.add(transactionInfo);
+		}
+	}
+	
+	/**
+	 * Abstract method from abstract class implements in this class
+	 * @param amount
+	 * 			- the amount subtract from the account
+	 */
 	public void subtractFromBalance(double amount) {
 
-		if (getBalance() - amount >= MIN_AMOUNT) {
-			
-			super.subtractFromBalance(amount);	
+		if (getBalance() - amount >= MIN_AMOUNT) {	
 			addACheque();
 			totalFees = numberOfCheques * FEE;
+			setBalance(getBalance() - amount);
+			addTransaction(String.format("%s - withdrawal: $%.2f", new Date(), amount));
 
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * toString method to check instance variables
 	 */
 	@Override
 	public String toString() {
 		return "ChequingAccount [numberOfCheques=" + numberOfCheques + ", totalFees=" + totalFees + ", toString()="
 				+ super.toString() + "]";
 	}
-
-	
 
 }
