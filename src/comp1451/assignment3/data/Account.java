@@ -49,90 +49,75 @@ public abstract class Account {
 	}
 
 	/**
-	 * 
+	 * Accessor of balance
 	 * @return the balance as double
 	 */
 	public double getBalance() {
-
 		return balance;
 	}
 
 	/**
-	 * 
+	 * Mutator of balance
 	 * @param balance
 	 *            the balance to set
 	 */
 	public void setBalance(double balance) {
-
 		if (balance >= 0) {
 			this.balance = balance;
 		}
 	}
 
 	/**
-	 * 
+	 * Accessor of accountNumber
 	 * @return the accountNumber as String
 	 */
 	public String getAccountNumber() {
-
 		return accountNumber;
 	}
 
 	/**
-	 * 
+	 * Mutator of accountNumber
 	 * @param accountNumber
 	 *            the accountNumber to set
 	 */
 	public void setAccountNumber(String accountNumber) {
-
-		if (accountNumber != null && !accountNumber.isEmpty()) {
+		if (accountNumber != null && !accountNumber.trim().isEmpty()) {
 			this.accountNumber = accountNumber;
 		}
 	}
 
 	/**
-	 * 
+	 * Accessore of active
 	 * @return the active as boolean
 	 */
 	public boolean isActive() {
-
 		return active;
 	}
 
 	/**
-	 * 
+	 * Mutator of active
 	 * @param active
 	 *            the active to set
 	 */
 	public void setActive(boolean active) {
-
 		this.active = active;
 	}
 
 	/**
-	 * 
+	 * Abstrct method addTransaction
 	 * @param transactionInfo
 	 *            the information to add to ArrayList
 	 */
-	public void addTransaction(String transactionInfo) {
-
-		if (accountNumber != null && !accountNumber.isEmpty()) {
-			accountRecords.add(transactionInfo);
-			
-		}
-	}
+	public abstract void addTransaction();
 
 	/**
 	 * Displays the transaction information.
 	 */
 	public void displayAccountRecords() {
-
 		System.out.println("Acount Activity: ");
-
 		for (String info : accountRecords) {
 			System.out.println(info);
 		}
-
 	}
 
 	/**
@@ -141,7 +126,6 @@ public abstract class Account {
 	 *            the amount to add to the existing field
 	 */
 	public void addToBalance(double amount) {
-
 		if (amount > 0.0) {
 			balance += amount;
 			addTransaction(String.format("%s - deposit: $%.2f", new Date(), amount));
@@ -149,22 +133,14 @@ public abstract class Account {
 	}
 
 	/**
-	 * 
+	 * Abstract method of subtractFromBalance
 	 * @param amount
 	 *            the amount to subtract from the balance
 	 */
-	public void subtractFromBalance(double amount) {
+	public abstract void subtractFromBalance();
 
-		if (amount > 0.0) {
-			balance -= amount;
-			addTransaction(String.format("%s - withdrawal: $%.2f", new Date(), amount));
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
+	/**
+	 * toString method
 	 */
 	@Override
 	public String toString() {
