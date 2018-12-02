@@ -24,7 +24,7 @@ public abstract class Account {
 	private double balance;
 	private String accountNumber;
 	private boolean active;
-	private ArrayList<String> accountRecords;
+	protected ArrayList<String> accountRecords;
 
 	/**
 	 * Default constructor
@@ -108,7 +108,7 @@ public abstract class Account {
 	 * @param transactionInfo
 	 *            the information to add to ArrayList
 	 */
-	public abstract void addTransaction();
+	public abstract void addTransaction(String transactionInfo);
 
 	/**
 	 * Displays the transaction information.
@@ -137,7 +137,7 @@ public abstract class Account {
 	 * @param amount
 	 *            the amount to subtract from the balance
 	 */
-	public abstract void subtractFromBalance();
+	public abstract void subtractFromBalance(double amount);
 
 	/**
 	 * toString method
