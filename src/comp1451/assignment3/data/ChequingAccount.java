@@ -74,7 +74,7 @@ public class ChequingAccount extends Account {
 	}
 	
 	/**
-	 * Abstract method from abstract class implements in this class
+	 * Implement abstract method from abstract class
 	 * @param amount
 	 * 			- the amount subtract from the account
 	 */
