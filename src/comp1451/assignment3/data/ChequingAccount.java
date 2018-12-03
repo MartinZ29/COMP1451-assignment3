@@ -70,6 +70,7 @@ public class ChequingAccount extends Account {
 	public void addTransaction(String transactionInfo) {
 		if(getAccountNumber() != null && !getAccountNumber().trim().isEmpty()) {
 			accountRecords.add(transactionInfo);
+			System.out.println("The number of cheques is: " + numberOfCheques + ", total fees are: " + totalFees + "." );
 		}
 	}
 	
@@ -83,9 +84,8 @@ public class ChequingAccount extends Account {
 		if (getBalance() - amount >= MIN_AMOUNT) {	
 			addACheque();
 			totalFees = numberOfCheques * FEE;
-			setBalance(getBalance() - amount);
+			setBalance(getBalance() - amount - FEE);
 			addTransaction(String.format("%s - withdrawal: $%.2f", new Date(), amount));
-
 		}
 	}
 
