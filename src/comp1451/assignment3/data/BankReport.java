@@ -16,8 +16,6 @@ public class BankReport implements Reporter{
 		for(BankCustomer customer: Bank.theBank.values()) {
 			if(prefix != null && theBank != null && customer.getAccount().getAccountNumber().substring(0,2).equals(format(prefix))) {
 				System.out.println(customer);
-			}else {
-				System.out.println("Please enter correct category");
 			}
 		}
 	}
