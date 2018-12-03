@@ -114,7 +114,7 @@ public abstract class Account {
 	 * Displays the transaction information.
 	 */
 	public void displayAccountRecords() {
-		System.out.println("Acount Activity: ");
+		System.out.println("Account Activity: ");
 		for (String info : accountRecords) {
 			System.out.println(info);
 		}
