@@ -5,6 +5,15 @@ import java.util.Collections;
 
 import comp1451.assignment3.collection.*;
 
+/** 
+* BCIT COMP1451 assignment3
+* Student id# 01013955  Yuxing Zhang
+* 
+* @author Martin
+* @version Dec 02, 2018
+*
+*/
+
 public class BankReport implements Reporter{
 
 

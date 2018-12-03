@@ -3,6 +3,14 @@ package comp1451.assignment3.data;
 import java.util.Date;
 
 /**
+ * BCIT COMP1451 assignment3
+ * Student id# 01013955  Yuxing Zhang
+ * 
+ * @author Martin
+ * @version Dec 02, 2018
+ * 
+ * Import solution for assignment 2 as starter
+ *
  * GoldAccount data class
  * 
  * @author Bullwinkle Moose
