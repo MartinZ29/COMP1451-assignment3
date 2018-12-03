@@ -40,7 +40,7 @@ public class BankCustomer {
 		setLastName(lastName);
 		setPasscode(passcode);
 		setAge(age);
-		account = new Account();
+		//account = new Account();
 	}
 
 	/**
