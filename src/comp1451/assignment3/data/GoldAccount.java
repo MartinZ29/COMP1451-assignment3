@@ -35,6 +35,7 @@ public class GoldAccount extends Account {
 	 */
 	public GoldAccount(double balance, String accountNumber) {
 		super(balance, accountNumber);
+		setBalance(balance);
 		overdraft = false;
 	}
 
@@ -72,6 +73,7 @@ public class GoldAccount extends Account {
 	public void addTransaction(String transactionInfo) {
 		if(getAccountNumber() != null && !getAccountNumber().trim().isEmpty()) {
 			accountRecords.add(transactionInfo);
+			System.out.println("You are in overdraft protection: " + isOverdraft());
 		}
 	}
 	
@@ -84,13 +86,25 @@ public class GoldAccount extends Account {
 		if (getBalance() - amount >= GoldAccount.MIN_AMOUNT) {
 			setBalance(getBalance() - amount);
 			addTransaction(String.format("%s - withdrawal: $%.2f", new Date(), amount));
-		}else if(getBalance() - amount <= GoldAccount.MIN_AMOUNT && getBalance() - amount >= GoldAccount.OVERDRAFT_AMT){
+		}else if(getBalance() - amount < GoldAccount.MIN_AMOUNT && getBalance() - amount >= GoldAccount.OVERDRAFT_AMT){
 			setBalance(getBalance() - amount);
-			addTransaction(String.format("%s - withdrawal: $%.2f", new Date(), amount));
 			setOverdraft(true);
+			addTransaction(String.format("%s - withdrawal: $%.2f", new Date(), amount));
 		}else {
 			System.out.println("Sorry. Not enough balance.");
 		}
+	}
+	
+	/**
+	 * Mutator of balance
+	 * @param balance
+	 *            the balance to set
+	 */
+	public void setBalance(double balance) {
+		if(balance >= GoldAccount.OVERDRAFT_AMT) {
+			this.balance = balance;
+		}
+		
 	}
 
 	/**
