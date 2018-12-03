@@ -46,6 +46,7 @@ public class SavingsAccount extends Account {
 	public void addTransaction(String transactionInfo) {
 		if(getAccountNumber() != null && !getAccountNumber().trim().isEmpty()) {
 			accountRecords.add(transactionInfo);
+			System.out.println("You balance is: " + getBalance() + ", minium active amount is: " + MIN_AMOUNT + ". You account is active: " + isActive());
 		}
 	}
 		
