@@ -21,7 +21,7 @@ import java.util.Date;
  */
 
 public abstract class Account {
-	private double balance;
+	protected double balance;
 	private String accountNumber;
 	private boolean active;
 	protected ArrayList<String> accountRecords;
