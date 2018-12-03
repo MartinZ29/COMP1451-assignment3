@@ -18,6 +18,7 @@ public class ATM {
 	private String accountNumber;
 	private String passcode;
 	private boolean customerVerified;
+	private boolean admin;
 
 	private Bank theBank;
 	private BankCustomer currentCustomer;
@@ -62,6 +63,7 @@ public class ATM {
 		System.out.println("Welcome to Bullwinkle's Bank.");
 
 		while (!exit) {
+			if(!admin)
 			System.out.println("");
 			System.out.println("Choose one of the following options:");
 			System.out.println("1 - Sign In");
@@ -200,7 +202,8 @@ public class ATM {
 		currentAccount = currentCustomer.getAccount();
 
 		if(accountNumber.equals("admin") && passcode.equals("admin")) {
-			
+			admin = true;
+			run();
 		}else {
 			if (currentCustomer != null) {
 				if (passcode.equals(currentCustomer.getPasscode())) {
