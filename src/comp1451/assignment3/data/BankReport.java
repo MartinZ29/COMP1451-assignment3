@@ -8,10 +8,16 @@ import comp1451.assignment3.collection.*;
 public class BankReport implements Reporter{
 
 
+	/**
+	 * Default constructor
+	 */
 	public BankReport() {
 		
 	}
 	
+	/**
+	 * Display account information by the account type entered in the console
+	 */
 	public void displayByCode(Bank theBank, String prefix) {
 		for(BankCustomer customer: Bank.theBank.values()) {
 			if(prefix != null && theBank != null && customer.getAccount().getAccountNumber().substring(0,2).equals(format(prefix))) {
@@ -22,7 +28,10 @@ public class BankReport implements Reporter{
 		}
 	}
 
-
+	/**
+	 * Display all active account by their account number
+	 * In Alphabetical order
+	 */
 	public void displayAllCodes(Bank theBank) {
 		
 		ArrayList<String> active = new ArrayList<String>();
@@ -40,6 +49,10 @@ public class BankReport implements Reporter{
 		}
 	}
 
+	/**
+	 * Display all inactive account by their account number
+	 * in descending alphabetical order
+	 */
 	public void displayInactiveCodes(Bank theBank) {
 		
 		ArrayList<String> inactive = new ArrayList<String>();
@@ -58,6 +71,11 @@ public class BankReport implements Reporter{
 		}	
 	}
 	
+	/**
+	 * Display the total amount of all accounts in the bank
+	 * @param theBank
+	 * 				- the collection of BankCustomer
+	 */
 	public void displayAccountTotals(Bank theBank) {
 		double sum = 0.0;
 		
