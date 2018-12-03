@@ -23,6 +23,7 @@ public class ATM {
 	private Bank theBank;
 	private BankCustomer currentCustomer;
 	private Account currentAccount;
+	private BankReport bankReport;
 
 	private final int GOLD_AGE = 65;
 
@@ -63,35 +64,67 @@ public class ATM {
 		System.out.println("Welcome to Bullwinkle's Bank.");
 
 		while (!exit) {
-			if(!admin)
-			System.out.println("");
-			System.out.println("Choose one of the following options:");
-			System.out.println("1 - Sign In");
-			System.out.println("2 - Deposit");
-			System.out.println("3 - Withdraw");
-			System.out.println("4 - Display Account Info");
-			System.out.println("5 - Exit");
-			System.out.print("> ");
-			int choice = reader.getIntInput();
+			if(!admin) {
+				System.out.println("");
+				System.out.println("Choose one of the following options:");
+				System.out.println("1 - Sign In");
+				System.out.println("2 - Deposit");
+				System.out.println("3 - Withdraw");
+				System.out.println("4 - Display Account Info");
+				System.out.println("5 - Exit");
+				System.out.print("> ");
+				int choice = reader.getIntInput();
 
-			switch (choice) {
-			case 1:
-				verifyCustomer();
-				break;
-			case 2:
-				transactDeposit();
-				break;
-			case 3:
-				transactWithdraw();
-				break;
-			case 4:
-				displayAccountInformation();
-				break;
-			case 5:
-				shutDown();
-			default:
-				System.out.println("KA-BOOM!!!");
-				System.exit(0);
+				switch (choice) {
+				case 1:
+					verifyCustomer();
+					break;
+				case 2:
+					transactDeposit();
+					break;
+				case 3:
+					transactWithdraw();
+					break;
+				case 4:
+					displayAccountInformation();
+					break;
+				case 5:
+					shutDown();
+				default:
+					System.out.println("KA-BOOM!!!");
+					System.exit(0);
+				}
+			}else {
+				System.out.println("");
+				System.out.println("Choose one of the following options:");
+				System.out.println("1 - Display by Code");
+				System.out.println("2 - Display all Codes");
+				System.out.println("3 - Display Inactive Codes");
+				System.out.println("4 - Display Account Totals");
+				System.out.println("5 - Exit");
+				System.out.print("> ");
+				int choice = reader.getIntInput();
+				
+				switch (choice) {
+				case 1:
+					System.out.println("Enter Account Type: ");
+					bankReport.displayByCode(theBank, reader.getStringInput());
+					break;
+				case 2:
+					bankReport.displayAllCodes(theBank);
+					break;
+				case 3:
+					bankReport.displayInactiveCodes(theBank);
+					break;
+				case 4:
+					bankReport.displayAccountTotals(theBank);
+					break;
+				case 5:
+					shutDown();
+				default:
+					System.out.println("KA-BOOM!!!");
+					System.exit(0);
+				}
 			}
 		}
 	}
@@ -125,6 +158,7 @@ public class ATM {
 			theBank.createAccount(customer);
 		}
 
+		bankReport = new BankReport();
 	}
 
 	/**
@@ -143,7 +177,7 @@ public class ATM {
 		} else {
 
 			System.out.println("ERROR: You must LOGIN before you can perform a transaction.");
-			verifyCustomer();
+			run();
 		}
 	}
 
@@ -163,7 +197,7 @@ public class ATM {
 		} else {
 
 			System.out.println("ERROR: You must LOGIN before you can perform a transaction.");
-			verifyCustomer();
+			run();
 		}
 
 	}
@@ -178,10 +212,11 @@ public class ATM {
 		if (customerVerified) {
 			System.out.println("Here is your information.");
 			Bank.displayCustomerInformation(currentCustomer);
+			currentAccount.displayAccountRecords();
 		} else {
 
 			System.out.println("ERROR: You must LOGIN before you can perform a transaction.");
-			verifyCustomer();
+			run();
 		}
 
 	}
@@ -193,29 +228,36 @@ public class ATM {
 	 */
 	public void verifyCustomer() {
 
-		System.out.println("Enter Account Number: ");
-		accountNumber = reader.getStringInput();
-		System.out.println("Enter Passcode: ");
-		passcode = reader.getStringInput();
+		if(!customerVerified) {
+			System.out.println("Enter Account Number: ");
+			accountNumber = reader.getStringInput();
+			System.out.println("Enter Passcode: ");
+			passcode = reader.getStringInput();
 
-		currentCustomer = Bank.theBank.get(accountNumber);
-		currentAccount = currentCustomer.getAccount();
-
-		if(accountNumber.equals("admin") && passcode.equals("admin")) {
-			admin = true;
-			run();
-		}else {
-			if (currentCustomer != null) {
-				if (passcode.equals(currentCustomer.getPasscode())) {
-					customerVerified = true;
-				} else {
+			if(accountNumber.equals("admin") && passcode.equals("admin")) {
+				admin = true;
+				customerVerified = true;
+				currentCustomer = null;
+				currentAccount = null;
+				run();
+			}else {
+				currentCustomer = Bank.theBank.get(accountNumber);
+				currentAccount = currentCustomer.getAccount();
+				if (currentCustomer != null) {
+					if (passcode.equals(currentCustomer.getPasscode())) {
+						customerVerified = true;
+					} else {
+						System.out.println("ERROR: Either account number or passcode is not correct.");
+						run();
+					}
+				}else {
 					System.out.println("ERROR: Either account number or passcode is not correct.");
 					run();
 				}
-			}else {
-				System.out.println("ERROR: Either account number or passcode is not correct.");
-				run();
 			}
+		}else {
+			System.out.println("Sorry. You've already signed in.");
+			run();
 		}
 
 	}
@@ -231,7 +273,11 @@ public class ATM {
 
 		System.out.println("ACCOUNT SUMMARY:");
 		Bank.displayCustomerInformation(currentCustomer);
-		currentAccount.displayAccountRecords();
+		if(currentAccount != null) {
+			currentAccount.displayAccountRecords();
+		}else {
+			System.out.println("Not a current customer.");
+		}
 
 		System.out.println("");
 
