@@ -1,6 +1,5 @@
 package comp1451.assignment3.data;
 
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -13,7 +12,7 @@ public class BankReport implements Reporter{
 		
 	}
 	
-	public void displayByCode(HashMap theBank, String prefix) {
+	public void displayByCode(Bank theBank, String prefix) {
 		for(BankCustomer customer: Bank.theBank.values()) {
 			if(prefix != null && theBank != null && customer.getAccount().getAccountNumber().substring(0,2).equals(format(prefix))) {
 				System.out.println(customer);
@@ -24,7 +23,7 @@ public class BankReport implements Reporter{
 	}
 
 
-	public void displayAllCodes(HashMap theBank) {
+	public void displayAllCodes(Bank theBank) {
 		
 		ArrayList<String> active = new ArrayList<String>();
 		
@@ -41,7 +40,7 @@ public class BankReport implements Reporter{
 		}
 	}
 
-	public void displayInactiveCodes(HashMap theBank) {
+	public void displayInactiveCodes(Bank theBank) {
 		
 		ArrayList<String> inactive = new ArrayList<String>();
 		
@@ -59,7 +58,7 @@ public class BankReport implements Reporter{
 		}	
 	}
 	
-	public void displayAccountTotals(HashMap theBank) {
+	public void displayAccountTotals(Bank theBank) {
 		double sum = 0.0;
 		
 		for(BankCustomer customer : Bank.theBank.values()) {
