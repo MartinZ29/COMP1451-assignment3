@@ -134,11 +134,11 @@ public class ATM {
 	 */
 	public void initialize() {
 
-		BankCustomer[] customers = { new BankCustomer("Darby", "Dog", "123", 35),
-				new BankCustomer("Myia", "Dog", "456", 12), new BankCustomer("Freckle", "Cat", "789", 65) };
+		BankCustomer[] customers = { new BankCustomer("Darby", "Dog", "456", 35),
+				new BankCustomer("Myia", "Dog", "123", 12), new BankCustomer("Freckle", "Cat", "789", 65) };
 
-		Account[] accounts = { new SavingsAccount(100.0, "SA-123"), new ChequingAccount(50.0, "CH-123"),
-				new GoldAccount(200.0, "GL-123") };
+		Account[] accounts = { new SavingsAccount(100.0, "SA-456"), new ChequingAccount(50.0, "CH-123"),
+				new GoldAccount(200.0, "GL-789") };
 
 		for (int i = 0; i < customers.length; i++) {
 
@@ -242,10 +242,10 @@ public class ATM {
 				run();
 			}else {
 				currentCustomer = Bank.theBank.get(accountNumber);
-				currentAccount = currentCustomer.getAccount();
 				if (currentCustomer != null) {
 					if (passcode.equals(currentCustomer.getPasscode())) {
 						customerVerified = true;
+						currentAccount = currentCustomer.getAccount();
 					} else {
 						System.out.println("ERROR: Either account number or passcode is not correct.");
 						run();
