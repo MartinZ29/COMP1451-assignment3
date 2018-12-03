@@ -59,6 +59,12 @@ public class SavingsAccount extends Account {
 		if (getBalance() - amount >= MIN_AMOUNT) {
 			setBalance(getBalance() - amount);
 			addTransaction(String.format("%s - withdrawal: $%.2f", new Date(), amount));
+		}else if(getBalance() - amount < MIN_AMOUNT && getBalance() - amount >= 0 ) {
+			setBalance(getBalance() - amount);
+			setActive(false);
+			addTransaction(String.format("%s - withdrawal: $%.2f", new Date(), amount));
+		}else {
+			System.out.println("Sorry. You do not have enough balance.");
 		}
 	}
 
