@@ -199,18 +199,20 @@ public class ATM {
 		currentCustomer = Bank.theBank.get(accountNumber);
 		currentAccount = currentCustomer.getAccount();
 
-		if (currentCustomer != null) {
-			if (passcode.equals(currentCustomer.getPasscode())) {
-
-				customerVerified = true;
-			} else {
+		if(accountNumber.equals("admin") && passcode.equals("admin")) {
+			
+		}else {
+			if (currentCustomer != null) {
+				if (passcode.equals(currentCustomer.getPasscode())) {
+					customerVerified = true;
+				} else {
+					System.out.println("ERROR: Either account number or passcode is not correct.");
+					run();
+				}
+			}else {
 				System.out.println("ERROR: Either account number or passcode is not correct.");
 				run();
 			}
-
-		} else {
-			System.out.println("ERROR: Either account number or passcode is not correct.");
-			run();
 		}
 
 	}
